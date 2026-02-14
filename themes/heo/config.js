@@ -86,8 +86,8 @@ const CONFIG = {
       title_1: 'Swift',
       img_1: '/images/heo/202328bbee0b314297917b327df4a704db5c072402.webp',
       color_1: '#eb6840',
-      title_2: 'Principle',
-      img_2: '/images/heo/2023f76570d2770c8e84801f7e107cd911b5073202.webp'，
+      title_2: 'Principle'，
+      img_2: '/images/heo/2023f76570d2770c8e84801f7e107cd911b5073202.webp',
       color_2: '#8f55ba'
     },
     {
@@ -124,7 +124,7 @@ const CONFIG = {
 
   // 底部统计面板文案
   HEO_POST_COUNT_TITLE: '文章数:',
-  HEO_SITE_TIME_TITLE: '建站天数:'，
+  HEO_SITE_TIME_TITLE: '建站天数:',
   HEO_SITE_VISIT_TITLE: '访问量:',
   HEO_SITE_VISITOR_TITLE: '访客数:',
 
