@@ -41,11 +41,11 @@ const CONFIG = {
   HEO_INFOCARD_GREETINGS: [
     '你好！我是',
     '🔍 分享与热心帮助',
-    '🤝 专修交互与设计',
+    '🤝 爱阅读的小朋友',
     '🏃 脚踏实地行动派',
-    '🏠 智能家居小能手',
-    '🤖️ 数码科技爱好者',
-    '🧱 团队小组发动机'
+    '🏠 爱干饭的干饭人',
+    '🤖️ 传统文化爱好者',
+    '🧱 热爱工作小牛马'
   ],
 
   // 个人资料底部按钮
@@ -99,7 +99,7 @@ const CONFIG = {
       color_2: '#2c51db'
     },
     {
-      title_1: 'JS',
+      title_1: 'JS'，
       img_1: '/images/heo/2023786e7fc488f453d5fb2be760c96185c0075502.webp',
       color_1: '#f7cb4f',
       title_2: 'HTML',
@@ -109,7 +109,7 @@ const CONFIG = {
     {
       title_1: 'Git',
       img_1: '/images/heo/2023ffa5707c4e25b6beb3e6a3d286ede4c6071102.webp',
-      color_1: '#df5b40',
+      color_1: '#df5b40'，
       title_2: 'Rhino',
       img_2: '/images/heo/20231ca53fa0b09a3ff1df89acd7515e9516173302.webp',
       color_2: '#1f1f1f'
@@ -124,7 +124,7 @@ const CONFIG = {
 
   // 底部统计面板文案
   HEO_POST_COUNT_TITLE: '文章数:',
-  HEO_SITE_TIME_TITLE: '建站天数:',
+  HEO_SITE_TIME_TITLE: '建站天数:'，
   HEO_SITE_VISIT_TITLE: '访问量:',
   HEO_SITE_VISITOR_TITLE: '访客数:',
 
