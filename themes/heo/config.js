@@ -21,9 +21,9 @@ const CONFIG = {
   HEO_HERO_TITLE_1: '学习笔记',
   HEO_HERO_TITLE_2: '与读书分享',
   HEO_HERO_TITLE_3: 'XY5206.COM',
-  HEO_HERO_TITLE_4: '新版上线',
-  HEO_HERO_TITLE_5: 'NotionNext4.0 轻松定制主题',
-  HEO_HERO_TITLE_LINK: 'https://tangly1024.com',
+  HEO_HERO_TITLE_4: '最新阅读',
+  HEO_HERO_TITLE_5: '读书百遍，其意自见',
+  HEO_HERO_TITLE_LINK: 'https://xy5206.com',
   // 英雄区遮罩文字
   HEO_HERO_COVER_TITLE: '随便逛逛',
 
