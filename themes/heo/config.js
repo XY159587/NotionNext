@@ -9,7 +9,7 @@ const CONFIG = {
   // 首页顶部通知条滚动内容，如不需要可以留空 []
   HEO_NOTICE_BAR: [
     { title: '欢迎来到我的博客', url: 'https://xy5206.com' },
-    { title: '欲买桂花同载酒，终不似，少年游'， url: 'https://xy5206.com' }
+    { title: '欲买桂花同载酒'， url: 'https://xy5206.com' }
   ],
 
   // 英雄区左右侧组件颠倒位置
