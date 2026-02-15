@@ -1,4 +1,5 @@
-import LanguageSwitcher from '@/components/LanguageSwitcher'
+// 导入语言切换器组件（已禁用）
+// import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { siteConfig } from '@/lib/config'
 import { isBrowser } from '@/lib/utils'
 import throttle from 'lodash.throttle'
@@ -168,8 +169,8 @@ const Header = props => {
 
           {/* 右侧固定 */}
           <div className='flex flex-shrink-0 justify-end items-center w-48'>
-             {/* 语言切换器 */}
-            <LanguageSwitcher />
+             {/* 语言切换器（已禁用） */}
+             {/* <LanguageSwitcher /> */}
             <RandomPostButton {...props} />
             <SearchButton {...props} />
             {!JSON.parse(siteConfig('THEME_SWITCH')) && (
