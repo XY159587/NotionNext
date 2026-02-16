@@ -1,6 +1,5 @@
 import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
-import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -21,8 +20,6 @@ import {
   WeiboIcon,
   WeiboShareButton
 } from 'react-share'
-
-const QrCode = dynamic(() => import('@/components/QrCode'), { ssr: false })
 
 // 添加设备检测函数
 const isMobileDevice = () => {
@@ -80,8 +77,8 @@ const ShareButtons = ({ post }) => {
   const services = siteConfig('POSTS_SHARE_SERVICES').split(',')
   const titleWithSiteInfo = title + ' | ' + siteConfig('TITLE')
   const { locale } = useGlobal()
-  const [qrCodeShow, setQrCodeShow] = useState(false)
-  const [activeQrCode, setActiveQrCode] = useState(null)
+  const [wechatQrShow, setWechatQrShow] = useState(false)
+  const [qqQrShow, setQqQrShow] = useState(false)
 
   const copyUrl = () => {
     // 确保 shareUrl 是一个正确的字符串并进行解码
@@ -90,14 +87,6 @@ const ShareButtons = ({ post }) => {
     alert(locale.COMMON.URL_COPIED + ' \n' + decodedUrl)
   }
 
-  const openPopover = (service) => {
-    setActiveQrCode(service)
-    setQrCodeShow(true)
-  }
-  const closePopover = () => {
-    setQrCodeShow(false)
-    setActiveQrCode(null)
-  }
   const openRedirectShare = base => {
     if (!shareUrl || typeof window === 'undefined') return
     window.open(
@@ -106,12 +95,18 @@ const ShareButtons = ({ post }) => {
       'noopener,noreferrer'
     )
   }
+  
   useEffect(() => {
     setShareUrl(window.location.href)
   }, [])
 
   // 检测是否为移动设备
   const mobile = isMobileDevice()
+
+  // 生成二维码URL
+  const generateQrCodeUrl = (text) => {
+    return `https://api.qrserver.com/v1/create-qr-code/?size=128x128&data=${encodeURIComponent(text)}`
+  }
 
   return (
     <>
@@ -200,81 +195,71 @@ const ShareButtons = ({ post }) => {
             )
           case 'qq':
             return (
-              <button
-                aria-label={singleService}
-                key={singleService}
-                onMouseEnter={() => !mobile && openPopover('qq')}
-                onMouseLeave={closePopover}
-                onClick={() => {
-                  if (mobile) {
-                    // 手机端：跳转到QQ
-                    const qqScheme = `mqqapi://share/to_fri?src_type=web&version=1&file_type=news&req_type=1&title=${encodeURIComponent(title)}&url=${encodeURIComponent(shareUrl)}&desc=${encodeURIComponent(body)}`
-                    const fallbackUrl = `https://connect.qq.com/widget/shareqq/index.html?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(title)}&desc=${encodeURIComponent(body)}`
-                    openAppShare(qqScheme, fallbackUrl)
-                  }
-                }}
-                className='cursor-pointer bg-blue-600 text-white rounded-full mx-1 relative'>
-                <i className='fab fa-qq w-8' />
+              <div className='relative mx-1'>
+                <button
+                  aria-label={singleService}
+                  key={singleService}
+                  onMouseEnter={() => !mobile && setQqQrShow(true)}
+                  onMouseLeave={() => setQqQrShow(false)}
+                  onClick={() => {
+                    if (mobile) {
+                      // 手机端：跳转到QQ
+                      const qqScheme = `mqqapi://share/to_fri?src_type=web&version=1&file_type=news&req_type=1&title=${encodeURIComponent(title)}&url=${encodeURIComponent(shareUrl)}&desc=${encodeURIComponent(body)}`
+                      const fallbackUrl = `https://connect.qq.com/widget/shareqq/index.html?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(title)}&desc=${encodeURIComponent(body)}`
+                      openAppShare(qqScheme, fallbackUrl)
+                    }
+                  }}
+                  className='cursor-pointer bg-blue-600 text-white rounded-full'>
+                  <i className='fab fa-qq w-8' />
+                </button>
                 {/* 电脑端显示二维码 */}
-                {!mobile && (
-                  <div className='absolute'>
-                    <div
-                      id='pop'
-                      className={
-                        (qrCodeShow && activeQrCode === 'qq' ? 'opacity-100 ' : ' invisible opacity-0') +
-                        ' z-40 absolute bottom-10 -left-10 bg-white shadow-xl transition-all duration-200 text-center'
-                      }>
-                      <div className='p-2 mt-1 w-28 h-28' id='qrcode'>
-                        {qrCodeShow && activeQrCode === 'qq' && (
-                          <QrCode value={`https://connect.qq.com/widget/shareqq/index.html?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(title)}&desc=${encodeURIComponent(body)}`} />
-                        )}
-                      </div>
-                      <span className='text-black font-semibold p-1 rounded-t-lg text-sm mx-auto mb-1'>
-                        {locale.COMMON.SCAN_QR_CODE}
-                      </span>
+                {!mobile && qqQrShow && (
+                  <div className='absolute z-40 bottom-10 -left-10 bg-white shadow-xl p-2'>
+                    <img 
+                      src={generateQrCodeUrl(`https://connect.qq.com/widget/shareqq/index.html?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(title)}&desc=${encodeURIComponent(body)}`)} 
+                      alt='QQ分享二维码' 
+                      className='w-28 h-28'
+                    />
+                    <div className='text-center text-black font-semibold text-sm mt-1'>
+                      {locale.COMMON.SCAN_QR_CODE || '扫码分享'}
                     </div>
                   </div>
                 )}
-              </button>
+              </div>
             )
           case 'wechat':
             return (
-              <button
-                aria-label={singleService}
-                key={singleService}
-                onMouseEnter={() => !mobile && openPopover('wechat')}
-                onMouseLeave={closePopover}
-                onClick={() => {
-                  if (mobile) {
-                    // 手机端：跳转到微信
-                    const wechatScheme = `weixin://`
-                    const fallbackUrl = `https://wx.qq.com/`
-                    openAppShare(wechatScheme, fallbackUrl)
-                  }
-                }}
-                className='cursor-pointer bg-green-600 text-white rounded-full mx-1 relative'>
-                <div id='wechat-button'>
+              <div className='relative mx-1'>
+                <button
+                  aria-label={singleService}
+                  key={singleService}
+                  onMouseEnter={() => !mobile && setWechatQrShow(true)}
+                  onMouseLeave={() => setWechatQrShow(false)}
+                  onClick={() => {
+                    if (mobile) {
+                      // 手机端：跳转到微信
+                      const wechatScheme = `weixin://`
+                      const fallbackUrl = `https://wx.qq.com/`
+                      openAppShare(wechatScheme, fallbackUrl)
+                    }
+                  }}
+                  className='cursor-pointer bg-green-600 text-white rounded-full'>
                   <i className='fab fa-weixin w-8' />
-                </div>
+                </button>
                 {/* 电脑端显示二维码 */}
-                {!mobile && (
-                  <div className='absolute'>
-                    <div
-                      id='pop'
-                      className={
-                        (qrCodeShow && activeQrCode === 'wechat' ? 'opacity-100 ' : ' invisible opacity-0') +
-                        ' z-40 absolute bottom-10 -left-10 bg-white shadow-xl transition-all duration-200 text-center'
-                      }>
-                      <div className='p-2 mt-1 w-28 h-28' id='qrcode'>
-                        {qrCodeShow && activeQrCode === 'wechat' && <QrCode value={shareUrl} />}
-                      </div>
-                      <span className='text-black font-semibold p-1 rounded-t-lg text-sm mx-auto mb-1'>
-                        {locale.COMMON.SCAN_QR_CODE}
-                      </span>
+                {!mobile && wechatQrShow && (
+                  <div className='absolute z-40 bottom-10 -left-10 bg-white shadow-xl p-2'>
+                    <img 
+                      src={generateQrCodeUrl(shareUrl)} 
+                      alt='微信分享二维码' 
+                      className='w-28 h-28'
+                    />
+                    <div className='text-center text-black font-semibold text-sm mt-1'>
+                      {locale.COMMON.SCAN_QR_CODE || '扫码分享'}
                     </div>
                   </div>
                 )}
-              </button>
+              </div>
             )
           case 'link':
             return (
@@ -282,7 +267,7 @@ const ShareButtons = ({ post }) => {
                 aria-label={singleService}
                 key={singleService}
                 className='cursor-pointer bg-yellow-500 text-white rounded-full mx-1'>
-                <div alt={locale.COMMON.URL_COPIED} onClick={copyUrl}>
+                <div alt={locale.COMMON.URL_COPIED || '复制链接'} onClick={copyUrl}>
                   <i className='fas fa-link w-8' />
                 </div>
               </button>
