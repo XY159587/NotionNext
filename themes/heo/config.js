@@ -48,13 +48,13 @@ const CONFIG = {
     '🧱 热爱工作小牛马'
   ],
 
-  // 个人资料底部按钮
-  HEO_INFO_CARD_URL1: '/about',
-  HEO_INFO_CARD_ICON1: 'fas fa-user',
-  HEO_INFO_CARD_URL2: 'https://https://www.douyin.com/user/MS4wLjABAAAARjPntiO1ae96zNs7xC9ga0Y-kUJFiVh7MqIsmpco5jQ?from_tab_name=main4',
-  HEO_INFO_CARD_ICON2: 'fab fa-tiktok',
-  HEO_INFO_CARD_URL3: 'https://www.tangly1024.com',
-  HEO_INFO_CARD_TEXT3: '了解更多',
+       // 个人资料底部按钮
+      HEO_INFO_CARD_URL1: '#', // 使用 # 作为链接，避免跳转
+      HEO_INFO_CARD_ICON1: 'fab fa-weixin', // 微信图标
+      HEO_INFO_CARD_URL2: '#', // 使用 # 作为链接，避免跳转
+      HEO_INFO_CARD_ICON2: 'fab fa-tiktok', // 抖音图标
+      HEO_INFO_CARD_URL3: 'https://www.tangly1024.com',
+      HEO_INFO_CARD_TEXT3: '了解更多',
 
   // 用户技能图标
   HEO_GROUP_ICONS: [
@@ -86,8 +86,8 @@ const CONFIG = {
       title_1: '红楼梦',
       img_1: '/images/heo/hongloumeng.webp',
       color_1: '#f0f0f0',
-      title_2: '霍乱时期的爱情',
-      img_2: '/images/heo/huoluanshiqideaiqing.webp',
+      title_2: '霍乱时期的爱情'，
+      img_2: '/images/heo/huoluanshiqideaiqing.webp'，
       color_2: '#f0f0f0'
     },
     {
