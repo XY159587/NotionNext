@@ -10,10 +10,10 @@ const Logo = props => {
       <div className='flex flex-nowrap items-center cursor-pointer font-extrabold'>
         <LazyImage
           src={siteInfo?.icon}
-          width={32} // 放大头像
-          height={32} // 放大头像
+          width={40} // 进一步放大头像
+          height={40} // 进一步放大头像
           alt={siteConfig('AUTHOR')}
-          className='mr-4 hidden md:block rounded-full' // 添加圆角
+          className='mr-4 hidden md:block rounded-lg' // 使用圆角而不是正圆
         />
         <div id='logo-text' className='group rounded-2xl flex-none relative'>
           <div className='logo group-hover:opacity-0 opacity-100 visible group-hover:invisible text-lg my-auto rounded dark:border-white duration-200'>
