@@ -122,6 +122,18 @@ function Banner(props) {
 function TagsGroupBar() {
   let groupIcons = siteConfig('HEO_GROUP_ICONS', null, CONFIG)
   if (groupIcons) {
+    // 随机排序函数
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1))
+        ;[array[i], array[j]] = [array[j], array[i]]
+      }
+      return array
+    }
+    
+    // 随机排序图标数组
+    groupIcons = shuffleArray(groupIcons)
+    // 复制数组以实现无缝滚动
     groupIcons = groupIcons.concat(groupIcons)
   }
   return (
