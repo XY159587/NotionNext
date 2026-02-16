@@ -353,7 +353,7 @@ function TodayCard({ cRef, siteInfo }) {
    * @param {*} e
    */
   function handleClickShowMore(e) {
-    e。stopPropagation()
+    e.stopPropagation()
     setIsCoverUp(false)
   }
 
