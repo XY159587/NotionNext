@@ -178,8 +178,7 @@ const Header = props => {
                 <DarkModeButton {...props} />
               </div>
             )}
-            <ReadingProgress />
-
+           {/* <ReadingProgress /> */}
             {/* 移动端菜单按钮 */}
             <div
               onClick={toggleMenuOpen}
