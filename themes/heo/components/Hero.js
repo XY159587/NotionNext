@@ -409,54 +409,38 @@ function TodayCard({ cRef, siteInfo }) {
 
         {/* 封面图 */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-       <img
+      <img
           src={getRandomBackground()}
-          id='today-card-cover'
+          id="today-card-cover"
           className={`${
             isCoverUp ? '' : ' pointer-events-none'
           } hover:scale-110 duration-1000 object-cover cursor-pointer today-card-cover absolute w-full h-full top-0`}
           onError={(e) => {
             // 加载失败时使用备用图片
-            e.target.src = getRandomBackground()
+            e.target.src = 'https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg';
           }}
         />
       </div>
     </div>
   )
 }
-// 随机背景图片函数（混合方案：Unsplash随机API + 固定备用图片）
+// 随机背景图片函数（使用Pexel稳定图片）
 function getRandomBackground() {
-  // 固定备用图片（确保稳定显示）
-  const backupBackgrounds = [
-    // Pexels 图书馆相关图片
+  // Pexel高质量图片（国内访问稳定，加载速度快）
+  const pexelBackgrounds = [
+    // 图书馆/阅读相关
     'https://images.pexels.com/photos/2494841/pexels-photo-2494841.jpeg',  // 温馨图书馆
     'https://images.pexels.com/photos/1591056/pexels-photo-1591056.jpeg',  // 现代图书馆
     'https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg',  // 阅读角落
+    'https://images.pexels.com/photos/2076866/pexels-photo-2076866.jpeg',  // 书籍堆叠
     
-    // Pexels 自然风景图片
+    // 自然风景
     'https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg',  // 山景
     'https://images.pexels.com/photos/2398220/pexels-photo-2398220.jpeg',  // 自然风景
     'https://images.pexels.com/photos/158163/clouds-cloudporn-connection-daylight-158163.jpeg'  // 天空
   ]
   
-  // Unsplash 随机图片查询词
-  const unsplashQueries = [
-    'library,reading',  // 图书馆和阅读
-    'books,study',      // 书籍和学习
-    'landscape,nature', // 风景和自然
-    'mountain,forest',  // 山和森林
-    'peaceful,serene'   // 宁静场景
-  ]
-  
-  // 70% 概率使用 Unsplash 随机API，30% 概率使用固定备用图片
-  if (Math.random() < 0.7) {
-    // 随机选择一个查询词
-    const randomQuery = unsplashQueries[Math.floor(Math.random() * unsplashQueries.length)]
-    // 返回 Unsplash 随机图片 URL
-    return `https://source.unsplash.com/random/1200x800/?${randomQuery}`
-  } else {
-    // 从固定备用图片中随机选择
-    return backupBackgrounds[Math.floor(Math.random() * backupBackgrounds.length)]
-  }
+  // 随机选择一张图片
+  return pexelBackgrounds[Math.floor(Math.random() * pexelBackgrounds.length)]
 }
 export default Hero
