@@ -24,8 +24,8 @@ import {
 
 const QrCode = dynamic(() => import('@/components/QrCode'), { ssr: false })
 
-// 添加APP跳转函数
-const openAppShare = (scheme) => {
+// APP跳转函数
+const openAppShare = (scheme, fallbackUrl) => {
   if (typeof window === 'undefined') return
   
   // 尝试打开APP
@@ -38,8 +38,10 @@ const openAppShare = (scheme) => {
   
   // 延迟检查是否成功打开APP
   setTimeout(() => {
-    // 如果页面仍然在可见状态，说明APP可能未安装
-    // 这里可以添加备选方案，如打开网页版分享
+    // 如果页面仍然在可见状态，说明APP可能未安装，尝试打开网页版
+    if (document.visibilityState === 'visible' && fallbackUrl) {
+      window.open(fallbackUrl, '_blank', 'noopener,noreferrer')
+    }
   }, 1000)
 }
 
@@ -142,7 +144,8 @@ const ShareButtons = ({ post }) => {
                 onClick={() => {
                   // Line分享URL Scheme
                   const lineScheme = `line://msg/text/?${encodeURIComponent(titleWithSiteInfo + ' ' + shareUrl)}`
-                  openAppShare(lineScheme)
+                  const fallbackUrl = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(titleWithSiteInfo)}`
+                  openAppShare(lineScheme, fallbackUrl)
                 }}
                 className='cursor-pointer mx-1'>
                 <LineIcon size={32} round />
@@ -164,8 +167,9 @@ const ShareButtons = ({ post }) => {
                 key={singleService}
                 onClick={() => {
                   // 微博分享URL Scheme
-                  const weiboScheme = `sinaweibo://share?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(titleWithSiteInfo)}`
-                  openAppShare(weiboScheme)
+                  const weiboScheme = `sinaweibo://share?content=${encodeURIComponent(titleWithSiteInfo + ' ' + shareUrl)}`
+                  const fallbackUrl = `https://service.weibo.com/share/share.php?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(titleWithSiteInfo)}`
+                  openAppShare(weiboScheme, fallbackUrl)
                 }}
                 className='cursor-pointer mx-1'>
                 <WeiboIcon size={32} round />
@@ -178,8 +182,9 @@ const ShareButtons = ({ post }) => {
                 key={singleService}
                 onClick={() => {
                   // QQ分享URL Scheme
-                  const qqScheme = `mqqapi://share/to_fri?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(title)}&desc=${encodeURIComponent(body)}`
-                  openAppShare(qqScheme)
+                  const qqScheme = `mqqapi://share/to_fri?src_type=web&version=1&file_type=news&req_type=1&title=${encodeURIComponent(title)}&url=${encodeURIComponent(shareUrl)}&desc=${encodeURIComponent(body)}`
+                  const fallbackUrl = `https://connect.qq.com/widget/shareqq/index.html?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(title)}&desc=${encodeURIComponent(body)}`
+                  openAppShare(qqScheme, fallbackUrl)
                 }}
                 className='cursor-pointer bg-blue-600 text-white rounded-full mx-1'>
                 <i className='fab fa-qq w-8' />
@@ -191,9 +196,10 @@ const ShareButtons = ({ post }) => {
                 aria-label={singleService}
                 key={singleService}
                 onClick={() => {
-                  // 微信分享URL Scheme
-                  const wechatScheme = `weixin://share?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(titleWithSiteInfo)}`
-                  openAppShare(wechatScheme)
+                  // 微信分享需要特殊处理，先尝试打开微信
+                  const wechatScheme = `weixin://`
+                  const fallbackUrl = `https://wx.qq.com/`
+                  openAppShare(wechatScheme, fallbackUrl)
                 }}
                 className='cursor-pointer bg-green-600 text-white rounded-full mx-1'>
                 <div id='wechat-button'>
