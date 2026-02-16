@@ -353,7 +353,7 @@ function TodayCard({ cRef, siteInfo }) {
    * @param {*} e
    */
   function handleClickShowMore(e) {
-    e.stopPropagation()
+    e。stopPropagation()
     setIsCoverUp(false)
   }
 
@@ -410,37 +410,14 @@ function TodayCard({ cRef, siteInfo }) {
         {/* 封面图 */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-          src={getRandomBackground()}
+          src={siteInfo?.pageCover}
           id="today-card-cover"
           className={`${
             isCoverUp ? '' : ' pointer-events-none'
           } hover:scale-110 duration-1000 object-cover cursor-pointer today-card-cover absolute w-full h-full top-0`}
-          onError={(e) => {
-            // 加载失败时使用备用图片
-            e.target.src = 'https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg';
-          }}
         />
       </div>
     </div>
   )
-}
-// 随机背景图片函数（使用Pexel稳定图片）
-function getRandomBackground() {
-  // Pexel高质量图片（国内访问稳定，加载速度快）
-  const pexelBackgrounds = [
-    // 图书馆/阅读相关
-    'https://images.pexels.com/photos/2494841/pexels-photo-2494841.jpeg',  // 温馨图书馆
-    'https://images.pexels.com/photos/1591056/pexels-photo-1591056.jpeg',  // 现代图书馆
-    'https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg',  // 阅读角落
-    'https://images.pexels.com/photos/2076866/pexels-photo-2076866.jpeg',  // 书籍堆叠
-    
-    // 自然风景
-    'https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg',  // 山景
-    'https://images.pexels.com/photos/2398220/pexels-photo-2398220.jpeg',  // 自然风景
-    'https://images.pexels.com/photos/158163/clouds-cloudporn-connection-daylight-158163.jpeg'  // 天空
-  ]
-  
-  // 随机选择一张图片
-  return pexelBackgrounds[Math.floor(Math.random() * pexelBackgrounds.length)]
 }
 export default Hero
