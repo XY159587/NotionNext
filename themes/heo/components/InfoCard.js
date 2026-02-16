@@ -111,7 +111,7 @@ export function InfoCard(props) {
         <Announcement post={notice} style={{ color: 'white !important' }} /> 
 
         <div className='flex justify-between'> 
-          <div className='flex space-x-3  hover:text-black dark:hover:text-white'> 
+          <div className='flex space-x-3'> {/* 移除父容器的悬停样式 */}
             {/* 微信按钮容器 */} 
             {url1 && ( 
               <div 
