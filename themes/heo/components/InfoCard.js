@@ -37,8 +37,8 @@ export function InfoCard(props) {
   const wechatQRUrl = '/images/wechat.webp' // 微信二维码
   const douyinQRUrl = '/images/douyin.webp' // 抖音二维码
   
-  // 计算按钮位置
-  useEffect(() => {
+  // 更新按钮位置
+  const updateButtonPositions = () => {
     if (wechatButtonRef.current) {
       const rect = wechatButtonRef.current.getBoundingClientRect()
       setWechatPosition({ x: rect.right, y: rect.bottom })
@@ -47,23 +47,22 @@ export function InfoCard(props) {
       const rect = douyinButtonRef.current.getBoundingClientRect()
       setDouyinPosition({ x: rect.right, y: rect.bottom })
     }
-  }, [])
+  }
   
-  // 处理窗口大小变化
+  // 计算按钮位置
   useEffect(() => {
-    const handleResize = () => {
-      if (wechatButtonRef.current) {
-        const rect = wechatButtonRef.current.getBoundingClientRect()
-        setWechatPosition({ x: rect.right, y: rect.bottom })
-      }
-      if (douyinButtonRef.current) {
-        const rect = douyinButtonRef.current.getBoundingClientRect()
-        setDouyinPosition({ x: rect.right, y: rect.bottom })
-      }
-    }
+    updateButtonPositions()
     
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    // 添加滚动事件监听器
+    window.addEventListener('scroll', updateButtonPositions)
+    // 添加窗口大小变化事件监听器
+    window.addEventListener('resize', updateButtonPositions)
+    
+    // 清理事件监听器
+    return () => {
+      window.removeEventListener('scroll', updateButtonPositions)
+      window.removeEventListener('resize', updateButtonPositions)
+    }
   }, [])
   
   return ( 
@@ -97,7 +96,10 @@ export function InfoCard(props) {
               <div 
                 ref={wechatButtonRef}
                 className='w-10 text-center bg-indigo-400 p-2 rounded-full transition-colors duration-200 dark:bg-yellow-500 dark:hover:bg-black hover:bg-white'
-                onMouseEnter={() => setShowWechatQR(true)}
+                onMouseEnter={() => {
+                  updateButtonPositions() // 鼠标悬停时更新位置
+                  setShowWechatQR(true)
+                }}
                 onMouseLeave={() => setShowWechatQR(false)}> 
                 <SmartLink href={url1}> 
                   <i className={icon1} /> 
@@ -110,7 +112,10 @@ export function InfoCard(props) {
               <div 
                 ref={douyinButtonRef}
                 className='bg-indigo-400 p-2 rounded-full w-10 items-center flex justify-center transition-colors duration-200 dark:bg-yellow-500 dark:hover:bg-black hover:bg-white'
-                onMouseEnter={() => setShowDouyinQR(true)}
+                onMouseEnter={() => {
+                  updateButtonPositions() // 鼠标悬停时更新位置
+                  setShowDouyinQR(true)
+                }}
                 onMouseLeave={() => setShowDouyinQR(false)}> 
                 <SmartLink href={url2}> 
                   <i className={icon2} /> 
@@ -180,7 +185,7 @@ function MoreButton() {
     <SmartLink href={url3}> 
       <div 
         className={ 
-          'group bg-indigo-400 dark:bg-yellow-500 hover:bg-white dark:hover:bg-black hover:text-black dark:hover:text-white flex items-center transition-colors duration-200 py-2 px-3 rounded-full space-x-1' 
+          'group bg-indigo-400 dark:bg-yellow-600 hover:bg-white dark:hover:bg-black hover:text-black dark:hover:text-white flex items-center transition-colors duration-200 py-2 px-3 rounded-full space-x-1' 
         }> 
         <ArrowRightCircle 
           className={ 
@@ -208,7 +213,7 @@ function GreetingsWords() {
   return ( 
     <div 
       onClick={handleChangeGreeting} 
-      className=' select-none cursor-pointer py-1 px-2 bg-indigo-400 hover:bg-indigo-50  hover:text-indigo-950 dark:bg-yellow-500 dark:hover:text-white dark:hover:bg-black text-sm rounded-lg  duration-200 transition-colors'> 
+      className=' select-none cursor-pointer py-1 px-2 bg-indigo-400 hover:bg-indigo-50  hover:text-indigo-950 dark:bg-yellow-600 dark:hover:text-white dark:hover:bg-black text-sm rounded-lg  duration-200 transition-colors'> 
       {greeting} 
     </div> 
   ) 
