@@ -135,12 +135,11 @@ function TagsGroupBar() {
                   className={
                     'tags-group-icon w-32 h-44 rounded-lg flex items-center justify-center shadow-lg transform transition-transform duration-300 hover:scale-105'
                   }>
-                  <LazyImage
-                    priority={true}
-                    preload={true}  // 添加预加载
-                    eager={true}    // 立即加载，不等待视口
+                 <img
                     src={g.img_1}
+                    alt={g.title_1}
                     title={g.title_1}
+                    loading="eager"  // 立即加载，不等待视口
                     className='w-full h-full object-cover rounded-lg hidden xl:block'
                   />
                 </div>
@@ -149,12 +148,11 @@ function TagsGroupBar() {
                 className={
                   'tags-group-icon  mt-8 w-32 h-44 rounded-lg flex items-center justify-center shadow-lg transform transition-transform duration-300 hover:scale-105'
                 }>
-               <LazyImage
-                  priority={true}
-                  preload={true}  // 添加预加载
-                  eager={true}    // 立即加载，不等待视口
+               <img
                   src={g.img_2}
+                  alt={g.title_2}
                   title={g.title_2}
+                  loading="eager"  // 立即加载，不等待视口
                   className='w-full h-full object-cover rounded-lg hidden xl:block'
                 />
               </div>
