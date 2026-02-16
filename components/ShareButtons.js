@@ -224,7 +224,7 @@ const ShareButtons = ({ post }) => {
                         (qrCodeShow && activeQrCode === 'qq' ? 'opacity-100 ' : ' invisible opacity-0') +
                         ' z-40 absolute bottom-10 -left-10 bg-white shadow-xl transition-all duration-200 text-center'
                       }>
-                      <div className='p-2 mt-1 w-28 h-28'>
+                      <div className='p-2 mt-1 w-28 h-28' id='qrcode'>
                         {qrCodeShow && activeQrCode === 'qq' && (
                           <QrCode value={`https://connect.qq.com/widget/shareqq/index.html?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(title)}&desc=${encodeURIComponent(body)}`} />
                         )}
@@ -265,7 +265,7 @@ const ShareButtons = ({ post }) => {
                         (qrCodeShow && activeQrCode === 'wechat' ? 'opacity-100 ' : ' invisible opacity-0') +
                         ' z-40 absolute bottom-10 -left-10 bg-white shadow-xl transition-all duration-200 text-center'
                       }>
-                      <div className='p-2 mt-1 w-28 h-28'>
+                      <div className='p-2 mt-1 w-28 h-28' id='qrcode'>
                         {qrCodeShow && activeQrCode === 'wechat' && <QrCode value={shareUrl} />}
                       </div>
                       <span className='text-black font-semibold p-1 rounded-t-lg text-sm mx-auto mb-1'>
