@@ -86,8 +86,8 @@ const CONFIG = {
       title_1: '红楼梦',
       img_1: '/images/heo/hongloumeng.png',
       color_1: '#f0f0f0',
-      title_2: '霍乱时期的爱情'，
-      img_2: '/images/heo/huoluanshiqideaiqing.png'，
+      title_2: '霍乱时期的爱情',
+      img_2: '/images/heo/huoluanshiqideaiqing.png',
       color_2: '#f0f0f0'
     },
     {
