@@ -126,32 +126,32 @@ function TagsGroupBar() {
   }
   return (
     <div className='tags-group-all flex -rotate-[30deg] h-full'>
-      <div className='tags-group-wrapper flex flex-nowrap absolute top-16'>
+      <div className='tags-group-wrapper flex flex-nowrap absolute top-16 animate-scroll'>
         {groupIcons?.map((g, index) => {
           return (
-            <div key={index} className='tags-group-icon-pair ml-6 select-none'>
+            <div key={index} className='tags-group-icon-pair ml-8 select-none'>
               <div
-                style={{ background: g.color_1 }}
-                className={
-                  'tags-group-icon w-28 h-28 rounded-3xl flex items-center justify-center text-white text-lg font-bold shadow-md'
-                }>
-                <LazyImage
-                  priority={true}
-                  src={g.img_1}
-                  title={g.title_1}
-                  className='w-2/3 hidden xl:block'
-                />
-              </div>
+                  style={{ background: '#f0f0f0' }}
+                  className={
+                    'tags-group-icon w-32 h-44 rounded-lg flex items-center justify-center shadow-lg transform transition-transform duration-300 hover:scale-105'
+                  }>
+                  <LazyImage
+                    priority={true}
+                    src={g.img_1}
+                    title={g.title_1}
+                    className='w-full h-full object-cover rounded-lg hidden xl:block'
+                  />
+                </div>
               <div
-                style={{ background: g.color_2 }}
+                style={{ background: '#f0f0f0' }}
                 className={
-                  'tags-group-icon  mt-5 w-28 h-28 rounded-3xl flex items-center justify-center text-white text-lg font-bold shadow-md'
+                  'tags-group-icon  mt-8 w-32 h-44 rounded-lg flex items-center justify-center shadow-lg transform transition-transform duration-300 hover:scale-105'
                 }>
                 <LazyImage
                   priority={true}
                   src={g.img_2}
                   title={g.title_2}
-                  className='w-2/3 hidden xl:block'
+                  className='w-full h-full object-cover rounded-lg hidden xl:block'
                 />
               </div>
             </div>
