@@ -25,92 +25,116 @@ export function InfoCard(props) {
   
   // 添加二维码显示状态
   const [showQRCode, setShowQRCode] = useState(null)
+  const [qrCodePosition, setQrCodePosition] = useState({ x: 0, y: 0 })
   
   // 你的二维码图片路径
   const wechatQRUrl = '/qr-codes/wechat-qr.jpg' // 微信二维码
   const douyinQRUrl = '/qr-codes/douyin-qr.jpg' // 抖音二维码
   
+  // 处理鼠标悬停，获取按钮位置
+  const handleMouseEnter = (type, event) => {
+    const rect = event.currentTarget.getBoundingClientRect()
+    setQrCodePosition({
+      x: rect.right,
+      y: rect.bottom
+    })
+    setShowQRCode(type)
+  }
+  
   return ( 
-    <Card className='wow fadeInUp bg-[#4f65f0] dark:bg-yellow-600 text-white flex flex-col w-72 overflow-hidden relative z-10'> 
-      {/* 信息卡牌第一行 */} 
-      <div className='flex justify-between'> 
-        {/* 问候语 */} 
-        <GreetingsWords /> 
-        {/* 头像 */} 
+    <>
+      <Card className='wow fadeInUp bg-[#4f65f0] dark:bg-yellow-600 text-white flex flex-col w-72 overflow-hidden relative z-10'> 
+        {/* 信息卡牌第一行 */} 
+        <div className='flex justify-between'> 
+          {/* 问候语 */} 
+          <GreetingsWords /> 
+          {/* 头像 */} 
+          <div 
+            className={`${isSlugPage ? 'absolute right-0 -mt-8 -mr-6 hover:opacity-0 hover:scale-150 blur' : 'cursor-pointer'} justify-center items-center flex dark:text-gray-100 transform transitaion-all duration-200`}> 
+            <LazyImage 
+                    src={siteInfo?.icon} 
+                    className='rounded-full border-2 border-white' // 添加白色边框 
+                    width={isSlugPage ? 100 : 48} 
+                    alt={siteConfig('AUTHOR')} 
+                  /> 
+          </div> 
+        </div> 
+
+        <h2 className='text-3xl font-extrabold mt-3'>{siteConfig('AUTHOR')}</h2> 
+
+        {/* 公告栏 */} 
+        <Announcement post={notice} style={{ color: 'white !important' }} /> 
+
+        <div className='flex justify-between'> 
+          <div className='flex space-x-3  hover:text-black dark:hover:text-white'> 
+            {/* 微信按钮 */} 
+            {url1 && ( 
+              <div 
+                className='w-10 text-center bg-indigo-400 p-2 rounded-full transition-colors duration-200 dark:bg-yellow-500 dark:hover:bg-black hover:bg-white relative'
+                onMouseEnter={(e) => handleMouseEnter('wechat', e)}
+                onMouseLeave={() => setShowQRCode(null)}> 
+                <SmartLink href={url1}> 
+                  <i className={icon1} /> 
+                </SmartLink>
+              </div> 
+            )} 
+            
+            {/* 抖音按钮 */} 
+            {url2 && ( 
+              <div 
+                className='bg-indigo-400 p-2 rounded-full w-10 items-center flex justify-center transition-colors duration-200 dark:bg-yellow-500 dark:hover:bg-black hover:bg-white relative'
+                onMouseEnter={(e) => handleMouseEnter('douyin', e)}
+                onMouseLeave={() => setShowQRCode(null)}> 
+                <SmartLink href={url2}> 
+                  <i className={icon2} /> 
+                </SmartLink>
+              </div> 
+            )} 
+          </div> 
+          {/* 第三个按钮 */} 
+          <MoreButton /> 
+        </div> 
+      </Card> 
+      
+      {/* 二维码弹窗 - 显示在组件外部 */}
+      {showQRCode === 'wechat' && (
         <div 
-          className={`${isSlugPage ? 'absolute right-0 -mt-8 -mr-6 hover:opacity-0 hover:scale-150 blur' : 'cursor-pointer'} justify-center items-center flex dark:text-gray-100 transform transitaion-all duration-200`}> 
-          <LazyImage 
-                  src={siteInfo?.icon} 
-                  className='rounded-full border-2 border-white' // 添加白色边框 
-                  width={isSlugPage ? 100 : 48} 
-                  alt={siteConfig('AUTHOR')} 
-                /> 
-        </div> 
-      </div> 
-
-      <h2 className='text-3xl font-extrabold mt-3'>{siteConfig('AUTHOR')}</h2> 
-
-      {/* 公告栏 */} 
-      <Announcement post={notice} style={{ color: 'white !important' }} /> 
-
-      <div className='flex justify-between'> 
-        <div className='flex space-x-3  hover:text-black dark:hover:text-white'> 
-          {/* 微信按钮 */} 
-          {url1 && ( 
-            <div 
-              className='w-10 text-center bg-indigo-400 p-2 rounded-full transition-colors duration-200 dark:bg-yellow-500 dark:hover:bg-black hover:bg-white relative'
-              onMouseEnter={() => setShowQRCode('wechat')}
-              onMouseLeave={() => setShowQRCode(null)}> 
-              <SmartLink href={url1}> 
-                <i className={icon1} /> 
-              </SmartLink>
-              
-              {/* 微信二维码弹窗 */}
-              {showQRCode === 'wechat' && icon1 === 'fab fa-weixin' && (
-                <div className='absolute z-50 top-full right-0 mt-2 p-2 bg-white rounded-lg shadow-lg w-48'>
-                  <img 
-                    src={wechatQRUrl} 
-                    alt='微信二维码' 
-                    className='w-full h-auto'
-                  />
-                  <div className='text-center text-sm mt-1 text-gray-600'>
-                    扫码添加微信
-                  </div>
-                </div>
-              )}
-            </div> 
-          )} 
-          
-          {/* 抖音按钮 */} 
-          {url2 && ( 
-            <div 
-              className='bg-indigo-400 p-2 rounded-full w-10 items-center flex justify-center transition-colors duration-200 dark:bg-yellow-500 dark:hover:bg-black hover:bg-white relative'
-              onMouseEnter={() => setShowQRCode('douyin')}
-              onMouseLeave={() => setShowQRCode(null)}> 
-              <SmartLink href={url2}> 
-                <i className={icon2} /> 
-              </SmartLink>
-              
-              {/* 抖音二维码弹窗 */}
-              {showQRCode === 'douyin' && icon2 === 'fab fa-tiktok' && (
-                <div className='absolute z-50 top-full right-0 mt-2 p-2 bg-white rounded-lg shadow-lg w-48'>
-                  <img 
-                    src={douyinQRUrl} 
-                    alt='抖音二维码' 
-                    className='w-full h-auto'
-                  />
-                  <div className='text-center text-sm mt-1 text-gray-600'>
-                    扫码关注抖音
-                  </div>
-                </div>
-              )}
-            </div> 
-          )} 
-        </div> 
-        {/* 第三个按钮 */} 
-        <MoreButton /> 
-      </div> 
-    </Card> 
+          className='fixed z-50 p-3 bg-white rounded-lg shadow-xl'
+          style={{
+            left: `${qrCodePosition.x + 10}px`,
+            top: `${qrCodePosition.y + 10}px`,
+            transform: 'translateX(-100%)'
+          }}>
+          <img 
+            src={wechatQRUrl} 
+            alt='微信二维码' 
+            className='w-48 h-48'
+          />
+          <div className='text-center text-sm mt-1 text-gray-600'>
+            扫码添加微信
+          </div>
+        </div>
+      )}
+      
+      {showQRCode === 'douyin' && (
+        <div 
+          className='fixed z-50 p-3 bg-white rounded-lg shadow-xl'
+          style={{
+            left: `${qrCodePosition.x + 10}px`,
+            top: `${qrCodePosition.y + 10}px`,
+            transform: 'translateX(-100%)'
+          }}>
+          <img 
+            src={douyinQRUrl} 
+            alt='抖音二维码' 
+            className='w-48 h-48'
+          />
+          <div className='text-center text-sm mt-1 text-gray-600'>
+            扫码关注抖音
+          </div>
+        </div>
+      )}
+    </>
   ) 
 } 
 
