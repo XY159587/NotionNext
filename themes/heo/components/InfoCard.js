@@ -27,11 +27,11 @@ export function InfoCard(props) {
   const [showQRCode, setShowQRCode] = useState(null)
   
   // 你的二维码图片路径
-  const wechatQRUrl = '/images/douyin.webp' // 微信二维码
-  const douyinQRUrl = '/images/douyin.webp' // 抖音二维码
+  const wechatQRUrl = '/qr-codes/wechat-qr.jpg' // 微信二维码
+  const douyinQRUrl = '/qr-codes/douyin-qr.jpg' // 抖音二维码
   
   return ( 
-    <Card className='wow fadeInUp bg-[#4f65f0] dark:bg-yellow-600 text-white flex flex-col w-72 overflow-hidden relative'> 
+    <Card className='wow fadeInUp bg-[#4f65f0] dark:bg-yellow-600 text-white flex flex-col w-72 overflow-hidden relative z-10'> 
       {/* 信息卡牌第一行 */} 
       <div className='flex justify-between'> 
         {/* 问候语 */} 
@@ -67,11 +67,11 @@ export function InfoCard(props) {
               
               {/* 微信二维码弹窗 */}
               {showQRCode === 'wechat' && icon1 === 'fab fa-weixin' && (
-                <div className='absolute z-50 top-full right-0 mt-2 p-2 bg-white rounded-lg shadow-lg'>
+                <div className='absolute z-50 top-full right-0 mt-2 p-2 bg-white rounded-lg shadow-lg w-48'>
                   <img 
                     src={wechatQRUrl} 
                     alt='微信二维码' 
-                    className='w-32 h-32'
+                    className='w-full h-auto'
                   />
                   <div className='text-center text-sm mt-1 text-gray-600'>
                     扫码添加微信
@@ -93,11 +93,11 @@ export function InfoCard(props) {
               
               {/* 抖音二维码弹窗 */}
               {showQRCode === 'douyin' && icon2 === 'fab fa-tiktok' && (
-                <div className='absolute z-50 top-full right-0 mt-2 p-2 bg-white rounded-lg shadow-lg'>
+                <div className='absolute z-50 top-full right-0 mt-2 p-2 bg-white rounded-lg shadow-lg w-48'>
                   <img 
                     src={douyinQRUrl} 
                     alt='抖音二维码' 
-                    className='w-32 h-32'
+                    className='w-full h-auto'
                   />
                   <div className='text-center text-sm mt-1 text-gray-600'>
                     扫码关注抖音
