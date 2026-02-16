@@ -60,58 +60,58 @@ const CONFIG = {
   HEO_GROUP_ICONS: [
     {
       title_1: '人类简史',
-      img_1: '/images/heo/renleijianshi.png',
+      img_1: '/images/heo/renleijianshi.webp',
       color_1: '#f0f0f0',
       title_2: '1984',
-      img_2: '/images/heo/1984.png',
+      img_2: '/images/heo/1984.webp',
       color_2: '#f0f0f0'
     },
     {
       title_1: '白鹿原',
-      img_1: '/images/heo/bailuyuan.png',
+      img_1: '/images/heo/bailuyuan.webp',
       color_1: '#f0f0f0',
       title_2: '百年孤独',
-      img_2: '/images/heo/bainiangudu.png',
+      img_2: '/images/heo/bainiangudu.webp',
       color_2: '#f0f0f0'
     },
     {
       title_1: '白夜行',
-      img_1: '/images/heo/baiyexing.png',
+      img_1: '/images/heo/baiyexing.webp',
       color_1: '#f0f0f0',
       title_2: '悲惨世界',
-      img_2: '/images/heo/beicanshijie.png',
+      img_2: '/images/heo/beicanshijie.webp',
       color_2: '#f0f0f0'
     },
     {
       title_1: '红楼梦',
-      img_1: '/images/heo/hongloumeng.png',
+      img_1: '/images/heo/hongloumeng.webp',
       color_1: '#f0f0f0',
-      title_2: '霍乱时期的爱情',
-      img_2: '/images/heo/huoluanshiqideaiqing.png',
+      title_2: '霍乱时期的爱情'，
+      img_2: '/images/heo/huoluanshiqideaiqing.webp'，
       color_2: '#f0f0f0'
     },
     {
       title_1: '活着',
-      img_1: '/images/heo/huozhe.png',
+      img_1: '/images/heo/huozhe.webp',
       color_1: '#f0f0f0',
       title_2: '呐喊',
-      img_2: '/images/heo/nahan.png',
+      img_2: '/images/heo/nahan.webp',
       color_2: '#f0f0f0'
     },
     {
       title_1: '飘',
-      img_1: '/images/heo/piao.png',
+      img_1: '/images/heo/piao.webp',
       color_1: '#f0f0f0',
       title_2: '平凡的世界',
-      img_2: '/images/heo/pingfandeshijie.png',
+      img_2: '/images/heo/pingfandeshijie.webp',
       color_2: '#f0f0f0'
     },
     {
       title_1: '苏菲的世界',
-      img_1: '/images/heo/sufeideshijie.png',
+      img_1: '/images/heo/sufeideshijie.webp',
       color_1: '#f0f0f0',
       title_2: '万历十五年',
-      img_2: '/images/heo/wanlishiwunian.png',
+      img_2: '/images/heo/wanlishiwunian.webp',
       color_2: '#f0f0f0'
     }
   ],
