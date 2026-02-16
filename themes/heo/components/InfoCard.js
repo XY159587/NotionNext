@@ -135,7 +135,7 @@ export function InfoCard(props) {
           <img 
             src={wechatQRUrl} 
             alt='微信二维码' 
-            className='w-48 h-48'
+            className='max-w-48 max-h-64 object-contain' // 保持图片比例，限制最大尺寸
           />
           <div className='text-center text-sm mt-1 text-gray-600'>
             扫码添加微信
@@ -155,7 +155,7 @@ export function InfoCard(props) {
           <img 
             src={douyinQRUrl} 
             alt='抖音二维码' 
-            className='w-48 h-48'
+            className='max-w-48 max-h-64 object-contain' // 保持图片比例，限制最大尺寸
           />
           <div className='text-center text-sm mt-1 text-gray-600'>
             扫码关注抖音
