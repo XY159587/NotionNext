@@ -32,10 +32,11 @@ export function InfoCard(props) {
         <div
           className={`${isSlugPage ? 'absolute right-0 -mt-8 -mr-6 hover:opacity-0 hover:scale-150 blur' : 'cursor-pointer'} justify-center items-center flex dark:text-gray-100 transform transitaion-all duration-200`}>
           <LazyImage
-            src={siteInfo?.icon}
-            className='rounded-full'
-            width={isSlugPage ? 100 : 28}
-            alt={siteConfig('AUTHOR')}
+                  src={siteInfo?.icon}
+                  className='rounded-full border-2 border-white' // 添加白色边框
+                  width={isSlugPage ? 100 : 48}
+                  alt={siteConfig('AUTHOR')}
+                />
           />
         </div>
       </div>
