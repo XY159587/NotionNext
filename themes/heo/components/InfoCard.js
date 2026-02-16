@@ -28,8 +28,8 @@ export function InfoCard(props) {
   const [qrCodePosition, setQrCodePosition] = useState({ x: 0, y: 0 })
   
   // 你的二维码图片路径
-  const wechatQRUrl = '/qr-codes/wechat-qr.jpg' // 微信二维码
-  const douyinQRUrl = '/qr-codes/douyin-qr.jpg' // 抖音二维码
+  const wechatQRUrl = '/images/wechat.webp' // 微信二维码
+  const douyinQRUrl = '/images/douyin.webp' // 抖音二维码
   
   // 处理鼠标悬停，获取按钮位置
   const handleMouseEnter = (type, event) => {
@@ -38,7 +38,7 @@ export function InfoCard(props) {
       x: rect.right,
       y: rect.bottom
     })
-    setShowQRCode(type)
+    setShowQRCode(输入)
   }
   
   return ( 
