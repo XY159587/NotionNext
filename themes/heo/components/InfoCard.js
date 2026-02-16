@@ -106,35 +106,85 @@ export function InfoCard(props) {
 
         <div className='flex justify-between'> 
           <div className='flex space-x-3  hover:text-black dark:hover:text-white'> 
-            {/* 微信按钮 */} 
+            {/* 微信按钮容器 */} 
             {url1 && ( 
               <div 
-                ref={wechatButtonRef}
-                className='w-10 text-center bg-indigo-400 p-2 rounded-full transition-colors duration-200 dark:bg-yellow-500 dark:hover:bg-black hover:bg-white'
+                className='relative'
                 onMouseEnter={() => {
                   updateButtonPositions() // 鼠标悬停时更新位置
                   setShowWechatQR(true)
                 }}
-                onMouseLeave={() => setShowWechatQR(false)}> 
-                <SmartLink href={url1}> 
-                  <i className={icon1} /> 
-                </SmartLink>
+                onMouseLeave={() => setShowWechatQR(false)}>
+                <div 
+                  ref={wechatButtonRef}
+                  className='w-10 text-center bg-indigo-400 p-2 rounded-full transition-colors duration-200 dark:bg-yellow-500 dark:hover:bg-black hover:bg-white'> 
+                  <SmartLink href={url1}> 
+                    <i className={icon1} /> 
+                  </SmartLink>
+                </div>
+                
+                {/* 微信二维码弹窗 - 显示在卡片外部 */}
+                {showWechatQR && (
+                  <div 
+                    className='fixed z-50 p-3 bg-white rounded-lg shadow-xl'
+                    style={{
+                      left: `${wechatPosition.x + 10}px`,
+                      top: wechatPosition.showAbove 
+                        ? `${wechatPosition.y - 240}px` // 显示在上方时，向上偏移弹窗高度
+                        : `${wechatPosition.y + 10}px`, // 显示在下方时，向下偏移一点
+                      transform: 'translateX(-100%)'
+                    }}>
+                    <img 
+                      src={wechatQRUrl} 
+                      alt='微信二维码' 
+                      className='max-w-48 max-h-64 object-contain' // 保持图片比例，限制最大尺寸
+                    />
+                    <div className='text-center text-sm mt-1 text-gray-600'>
+                      扫码添加微信
+                    </div>
+                  </div>
+                )}
               </div>
             )} 
             
-            {/* 抖音按钮 */} 
+            {/* 抖音按钮容器 */} 
             {url2 && ( 
               <div 
-                ref={douyinButtonRef}
-                className='bg-indigo-400 p-2 rounded-full w-10 items-center flex justify-center transition-colors duration-200 dark:bg-yellow-500 dark:hover:bg-black hover:bg-white'
+                className='relative'
                 onMouseEnter={() => {
                   updateButtonPositions() // 鼠标悬停时更新位置
                   setShowDouyinQR(true)
                 }}
-                onMouseLeave={() => setShowDouyinQR(false)}> 
-                <SmartLink href={url2}> 
-                  <i className={icon2} /> 
-                </SmartLink>
+                onMouseLeave={() => setShowDouyinQR(false)}>
+                <div 
+                  ref={douyinButtonRef}
+                  className='bg-indigo-400 p-2 rounded-full w-10 items-center flex justify-center transition-colors duration-200 dark:bg-yellow-500 dark:hover:bg-black hover:bg-white'> 
+                  <SmartLink href={url2}> 
+                    <i className={icon2} /> 
+                  </SmartLink>
+                </div>
+                
+                {/* 抖音二维码弹窗 - 显示在卡片外部 */}
+                {showDouyinQR && (
+                  <div 
+                    className='fixed z-50 p-3 bg-white rounded-lg shadow-xl'
+                    style={{
+                      left: `${douyinPosition.x + 10}px`,
+                      top: douyinPosition.showAbove 
+                        ? `${douyinPosition.y - 240}px` // 显示在上方时，向上偏移弹窗高度
+                        : `${douyinPosition.y + 10}px`, // 显示在下方时，向下偏移一点
+                      transform: 'translateX(-100%)'
+                    }}>
+                    <img 
+                      src={douyinQRUrl} 
+                      alt='抖音二维码' 
+                      className='max-w-48 max-h-64 object-contain' // 保持图片比例，限制最大尺寸
+                    />
+                    <div className='text-center text-sm mt-1 text-gray-600'>
+                      扫码关注抖音
+                    </div>
+                  </div>
+                )}
               </div>
             )} 
           </div> 
@@ -142,50 +192,6 @@ export function InfoCard(props) {
           <MoreButton /> 
         </div> 
       </Card> 
-      
-      {/* 微信二维码弹窗 - 显示在卡片外部 */}
-      {showWechatQR && (
-        <div 
-          className='fixed z-50 p-3 bg-white rounded-lg shadow-xl'
-          style={{
-            left: `${wechatPosition.x + 10}px`,
-            top: wechatPosition.showAbove 
-              ? `${wechatPosition.y - 240}px` // 显示在上方时，向上偏移弹窗高度
-              : `${wechatPosition.y + 10}px`, // 显示在下方时，向下偏移一点
-            transform: 'translateX(-100%)'
-          }}>
-          <img 
-            src={wechatQRUrl} 
-            alt='微信二维码' 
-            className='max-w-48 max-h-64 object-contain' // 保持图片比例，限制最大尺寸
-          />
-          <div className='text-center text-sm mt-1 text-gray-600'>
-            扫码添加微信
-          </div>
-        </div>
-      )}
-      
-      {/* 抖音二维码弹窗 - 显示在卡片外部 */}
-      {showDouyinQR && (
-        <div 
-          className='fixed z-50 p-3 bg-white rounded-lg shadow-xl'
-          style={{
-            left: `${douyinPosition.x + 10}px`,
-            top: douyinPosition.showAbove 
-              ? `${douyinPosition.y - 240}px` // 显示在上方时，向上偏移弹窗高度
-              : `${douyinPosition.y + 10}px`, // 显示在下方时，向下偏移一点
-            transform: 'translateX(-100%)'
-          }}>
-          <img 
-            src={douyinQRUrl} 
-            alt='抖音二维码' 
-            className='max-w-48 max-h-64 object-contain' // 保持图片比例，限制最大尺寸
-          />
-          <div className='text-center text-sm mt-1 text-gray-600'>
-            扫码关注抖音
-          </div>
-        </div>
-      )}
     </>
   ) 
 } 
