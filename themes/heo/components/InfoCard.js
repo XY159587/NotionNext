@@ -37,7 +37,6 @@ export function InfoCard(props) {
                   width={isSlugPage ? 100 : 48}
                   alt={siteConfig('AUTHOR')}
                 />
-          />
         </div>
       </div>
 
