@@ -80,6 +80,12 @@ export function InfoCard(props) {
     }
   }, [])
   
+  // 阻止默认点击行为
+  const handleButtonClick = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+  
   return ( 
     <>
       <Card className='wow fadeInUp bg-[#4f65f0] dark:bg-yellow-600 text-white flex flex-col w-72 overflow-visible relative z-10'> 
@@ -117,10 +123,10 @@ export function InfoCard(props) {
                 onMouseLeave={() => setShowWechatQR(false)}>
                 <div 
                   ref={wechatButtonRef}
-                  className='w-10 text-center bg-indigo-400 p-2 rounded-full transition-colors duration-200 dark:bg-yellow-500 dark:hover:bg-black hover:bg-white'> 
-                  <SmartLink href={url1}> 
-                    <i className={icon1} /> 
-                  </SmartLink>
+                  className='w-10 text-center bg-indigo-400 p-2 rounded-full transition-colors duration-200 dark:bg-yellow-500 dark:hover:bg-black hover:bg-white cursor-pointer'> 
+                  <div onClick={handleButtonClick}>
+                    <i className={icon1} />
+                  </div>
                 </div>
                 
                 {/* 微信二维码弹窗 - 显示在卡片外部 */}
@@ -158,10 +164,10 @@ export function InfoCard(props) {
                 onMouseLeave={() => setShowDouyinQR(false)}>
                 <div 
                   ref={douyinButtonRef}
-                  className='bg-indigo-400 p-2 rounded-full w-10 items-center flex justify-center transition-colors duration-200 dark:bg-yellow-500 dark:hover:bg-black hover:bg-white'> 
-                  <SmartLink href={url2}> 
-                    <i className={icon2} /> 
-                  </SmartLink>
+                  className='bg-indigo-400 p-2 rounded-full w-10 items-center flex justify-center transition-colors duration-200 dark:bg-yellow-500 dark:hover:bg-black hover:bg-white cursor-pointer'> 
+                  <div onClick={handleButtonClick}>
+                    <i className={icon2} />
+                  </div>
                 </div>
                 
                 {/* 抖音二维码弹窗 - 显示在卡片外部 */}
