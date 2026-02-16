@@ -26,8 +26,8 @@ export function InfoCard(props) {
   // 添加二维码显示状态
   const [showWechatQR, setShowWechatQR] = useState(false)
   const [showDouyinQR, setShowDouyinQR] = useState(false)
-  const [wechatPosition, setWechatPosition] = useState({ x: 0, y: 0 })
-  const [douyinPosition, setDouyinPosition] = useState({ x: 0, y: 0 })
+  const [wechatPosition, setWechatPosition] = useState({ x: 0, y: 0, showAbove: false })
+  const [douyinPosition, setDouyinPosition] = useState({ x: 0, y: 0, showAbove: false })
   
   // 引用按钮元素
   const wechatButtonRef = useRef(null)
@@ -39,13 +39,28 @@ export function InfoCard(props) {
   
   // 更新按钮位置
   const updateButtonPositions = () => {
+    // 二维码弹窗的近似高度（像素）
+    const qrCodeHeight = 240 // 估算值，可根据实际情况调整
+    
     if (wechatButtonRef.current) {
       const rect = wechatButtonRef.current.getBoundingClientRect()
-      setWechatPosition({ x: rect.right, y: rect.bottom })
+      // 检测是否靠近页面底部
+      const showAbove = (window.innerHeight - rect.bottom) < qrCodeHeight
+      setWechatPosition({ 
+        x: rect.right, 
+        y: showAbove ? rect.top : rect.bottom, 
+        showAbove 
+      })
     }
     if (douyinButtonRef.current) {
       const rect = douyinButtonRef.current.getBoundingClientRect()
-      setDouyinPosition({ x: rect.right, y: rect.bottom })
+      // 检测是否靠近页面底部
+      const showAbove = (window.innerHeight - rect.bottom) < qrCodeHeight
+      setDouyinPosition({ 
+        x: rect.right, 
+        y: showAbove ? rect.top : rect.bottom, 
+        showAbove 
+      })
     }
   }
   
@@ -134,7 +149,9 @@ export function InfoCard(props) {
           className='fixed z-50 p-3 bg-white rounded-lg shadow-xl'
           style={{
             left: `${wechatPosition.x + 10}px`,
-            top: `${wechatPosition.y + 10}px`,
+            top: wechatPosition.showAbove 
+              ? `${wechatPosition.y - 240}px` // 显示在上方时，向上偏移弹窗高度
+              : `${wechatPosition.y + 10}px`, // 显示在下方时，向下偏移一点
             transform: 'translateX(-100%)'
           }}>
           <img 
@@ -154,7 +171,9 @@ export function InfoCard(props) {
           className='fixed z-50 p-3 bg-white rounded-lg shadow-xl'
           style={{
             left: `${douyinPosition.x + 10}px`,
-            top: `${douyinPosition.y + 10}px`,
+            top: douyinPosition.showAbove 
+              ? `${douyinPosition.y - 240}px` // 显示在上方时，向上偏移弹窗高度
+              : `${douyinPosition.y + 10}px`, // 显示在下方时，向下偏移一点
             transform: 'translateX(-100%)'
           }}>
           <img 
